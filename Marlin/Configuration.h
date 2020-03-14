@@ -71,7 +71,7 @@
 // @section info
 
 // Author info of this build printed to the host during boot and M115
-#define STRING_CONFIG_H_AUTHOR "(petrzmax, Sapphire Pro)" // Who made the changes.
+#define STRING_CONFIG_H_AUTHOR "(bartkl, Sapphire Pro)" // Who made the changes.
 //#define CUSTOM_VERSION_FILE Version.h // Path from the root directory (no quotes)
 
 /**
@@ -123,7 +123,7 @@
  *
  * :[2400, 9600, 19200, 38400, 57600, 115200, 250000, 500000, 1000000]
  */
-#define BAUDRATE 115200
+#define BAUDRATE 250000
 
 // Enable the Bluetooth serial interface on AT90USB devices
 //#define BLUETOOTH
@@ -407,7 +407,7 @@
  *   998 : Dummy Table that ALWAYS reads 25°C or the temperature defined below.
  *   999 : Dummy Table that ALWAYS reads 100°C or the temperature defined below.
  */
-#define TEMP_SENSOR_0 20 // I'm using PT100. Set 1 for stock thermistor
+#define TEMP_SENSOR_0 1 
 #define TEMP_SENSOR_1 0
 #define TEMP_SENSOR_2 0
 #define TEMP_SENSOR_3 0
@@ -415,7 +415,7 @@
 #define TEMP_SENSOR_5 0
 #define TEMP_SENSOR_6 0
 #define TEMP_SENSOR_7 0
-#define TEMP_SENSOR_BED 11 // I'm using SSR. For Standard heater set to 1
+#define TEMP_SENSOR_BED 1 
 #define TEMP_SENSOR_PROBE 0
 #define TEMP_SENSOR_CHAMBER 0
 
@@ -500,14 +500,14 @@
   //#define DEFAULT_Kd 440
 
   // Sapphire Pro stock hotend AutoTuned
-  //#define DEFAULT_Kp 18
-  //#define DEFAULT_Ki 1.3
-  //#define DEFAULT_Kd 61
+  #define DEFAULT_Kp 10.9
+  #define DEFAULT_Ki 0.53
+  #define DEFAULT_Kd 55.08
 
   // Sapphire Pro stock hotend with PT100 manually tuned
-  #define DEFAULT_Kp 19
-  #define DEFAULT_Ki 2
-  #define DEFAULT_Kd 180
+  // #define DEFAULT_Kp 19
+  // #define DEFAULT_Ki 2
+  // #define DEFAULT_Kd 180
 
 #endif // PIDTEMP
 
@@ -557,14 +557,14 @@
   //#define DEFAULT_bedKd 1675.16
 
   // SapphirePro 24V Heater AutoTuned @ S80 C8
-  //#define DEFAULT_bedKp 68.67
-  //#define DEFAULT_bedKi 13.18
-  //#define DEFAULT_bedKd 238.58
+  #define DEFAULT_bedKp 23.55
+  #define DEFAULT_bedKi 3.54
+  #define DEFAULT_bedKd 104.44
 
   // SapphirePro 500W Keenovo SSR
-  #define DEFAULT_bedKp 95
-  #define DEFAULT_bedKi 0.7
-  #define DEFAULT_bedKd 210
+  // #define DEFAULT_bedKp 95
+  // #define DEFAULT_bedKi 0.7
+  // #define DEFAULT_bedKd 210
   // FIND YOUR OWN: "M303 E-1 C8 S90" to run autotune on the bed at 90 degreesC for 8 cycles.
 #endif // PIDTEMPBED
 
@@ -585,7 +585,7 @@
  * Note: For Bowden Extruders make this large enough to allow load/unload.
  */
 #define PREVENT_LENGTHY_EXTRUDE
-#define EXTRUDE_MAXLENGTH 650
+#define EXTRUDE_MAXLENGTH 700
 
 //===========================================================================
 //======================== Thermal Runaway Protection =======================
@@ -690,15 +690,15 @@
  *          TMC5130, TMC5130_STANDALONE, TMC5160, TMC5160_STANDALONE
  * :['A4988', 'A5984', 'DRV8825', 'LV8729', 'L6470', 'L6474', 'POWERSTEP01', 'TB6560', 'TB6600', 'TMC2100', 'TMC2130', 'TMC2130_STANDALONE', 'TMC2160', 'TMC2160_STANDALONE', 'TMC2208', 'TMC2208_STANDALONE', 'TMC2209', 'TMC2209_STANDALONE', 'TMC26X', 'TMC26X_STANDALONE', 'TMC2660', 'TMC2660_STANDALONE', 'TMC5130', 'TMC5130_STANDALONE', 'TMC5160', 'TMC5160_STANDALONE']
  */
-#define X_DRIVER_TYPE  TMC2209
-#define Y_DRIVER_TYPE  TMC2209
-#define Z_DRIVER_TYPE  TMC2209
+#define X_DRIVER_TYPE  TMC2208_STANDALONE
+#define Y_DRIVER_TYPE  TMC2208_STANDALONE
+#define Z_DRIVER_TYPE  A4988
 //#define X2_DRIVER_TYPE A4988
 //#define Y2_DRIVER_TYPE A4988
 //#define Z2_DRIVER_TYPE A4988
 //#define Z3_DRIVER_TYPE A4988
 //#define Z4_DRIVER_TYPE A4988
-#define E0_DRIVER_TYPE TMC2209
+#define E0_DRIVER_TYPE A4988
 //#define E1_DRIVER_TYPE A4988
 //#define E2_DRIVER_TYPE A4988
 //#define E3_DRIVER_TYPE A4988
@@ -750,7 +750,7 @@
  * Override with M92
  *                                      X, Y, Z, E0 [, E1[, E2...]]
  */
-#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 1600, 392.40 } // Calibrated stock extruder - 402 (Hemera stock 409, 392.40 - after calibration)
+#define DEFAULT_AXIS_STEPS_PER_UNIT   { 79.84, 80.08, 1593.62, 407.44 } // Calibrated stock extruder - 402 (Hemera stock 409, 392.40 - after calibration)
 
 /**
  * Default Max Feed Rate (mm/s)
@@ -1070,12 +1070,12 @@
 // Invert the stepper direction. Change (or reverse the motor connector) if an axis goes the wrong way.
 #define INVERT_X_DIR true
 #define INVERT_Y_DIR true
-#define INVERT_Z_DIR true	// Change it if You are not using TMC on this axis
+#define INVERT_Z_DIR false	// Change it if You are not using TMC on this axis
 
 // @section extruder
 
 // For direct drive extruder v9 set to true, for geared extruder set to false.
-#define INVERT_E0_DIR true	// Change it if You are not using TMC on this axis
+#define INVERT_E0_DIR false	// Change it if You are not using TMC on this axis
 #define INVERT_E1_DIR false
 #define INVERT_E2_DIR false
 #define INVERT_E3_DIR false
